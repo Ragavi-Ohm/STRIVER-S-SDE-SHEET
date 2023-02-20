@@ -1,0 +1,71 @@
+------------------APPROACH 1--STRIVER---------------------------------
+vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n=nums.size();
+        
+        vector<vector<int>>v1;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                long long int sum=(long long int)target-(long long int)(nums[i]+nums[j]);
+                int left=j+1;
+                int right=n-1;
+                while(left<right)
+                {
+                    if(nums[left]+nums[right]<sum)
+                        left++;
+                    else if(nums[left]+nums[right]>sum)
+                        right--;
+                    else
+                    {
+                        vector<int>v(4,0);
+                        v[0]=nums[i];
+                        v[1]=nums[j];
+                        v[2]=nums[left];
+                        v[3]=nums[right];
+                        v1.push_back(v);
+                        while(left<right && nums[left]==v[2])left++;
+                        while(left<right && nums[right]==v[3])right--;
+                    }
+                }
+                while(j + 1 < n && nums[j + 1] == nums[j]) ++j;
+            }
+            while (i + 1 < n && nums[i + 1] == nums[i]) ++i;
+        }
+        
+        return v1;
+        
+    }
+    
+    
+    
+    ---------------------------------------------APPROACH 2----------------------------------------------
+     vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        set<vector<int>> set;
+        vector<vector<int>> output;
+        for(int i=0; i<n-3; i++){
+            for(int j=i+1; j<n-2; j++){
+                long long newTarget = (long long)target - (long long)nums[i] - (long long)nums[j];
+                int low = j+1, high = n-1;
+                while(low < high){
+                    if(nums[low] + nums[high] < newTarget){
+                        low++;
+                    }
+                    else if(nums[low] + nums[high] > newTarget){
+                        high--;
+                    }
+                    else{
+                        set.insert({nums[i], nums[j], nums[low], nums[high]});
+                        low++; high--;
+                    }
+                }
+            }
+        }
+        for(auto it : set){
+            output.push_back(it);
+        }
+        return output;
+    }
