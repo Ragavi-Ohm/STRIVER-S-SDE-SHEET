@@ -1,0 +1,30 @@
+vector<int> nextGreater(vector<int> &arr, int n) {
+    // Write your code here
+    stack<int>s1,s2;
+    vector<int>v;
+    for(int i=n-1;i>=0;i--)
+    {
+        while(!s1.empty() && s1.top()<=arr[i])
+        {
+           //s2.push(s1.top());
+           s1.pop();
+        }
+        if(s1.empty())
+        {
+            v.push_back(-1);
+        }
+        else
+        {
+            v.push_back(s1.top());
+        }
+        /*while (!s2.empty()) {
+          s1.push(s2.top());
+          s2.pop();
+        }*/
+        s1.push(arr[i]);
+
+        
+    }
+    reverse(v.begin(), v.end());
+    return v;
+}
