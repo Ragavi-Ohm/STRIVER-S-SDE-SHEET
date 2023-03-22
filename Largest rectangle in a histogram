@@ -1,0 +1,51 @@
+int largestRectangle(vector < int > & heights) {
+   // Write your code here.
+   //next smaller
+   stack<int>s1;
+   int n=heights.size();
+   vector<int>ns;
+   for(int i=n-1;i>=0;i--)
+   {
+     while(!s1.empty() && heights[i]<=heights[s1.top()])
+     {
+       s1.pop();
+     }
+     if(s1.empty())
+     {
+       ns.push_back(n);
+     }
+     else
+     {
+       ns.push_back(s1.top());
+     }
+     s1.push(i);
+   }
+   reverse(ns.begin(),ns.end());
+
+   //previous smaller
+   vector<int>ps;
+   stack<int>s2;
+   for(int i=0;i<n;i++)
+   {
+     while(!s2.empty() && heights[i]<=heights[s2.top()])
+     {
+        s2.pop();
+     }
+     if(s2.empty())
+     {
+       ps.push_back(-1);
+     }
+     else
+     {
+       ps.push_back(s2.top());
+     }
+     s2.push(i);
+   }
+   //reverse(ps.begin(),ps.end());
+   int maxa=0;
+   for(int i=0;i<n;i++)
+   {
+     maxa=max(maxa,heights[i]*(ns[i]-ps[i]-1));
+   }
+   return maxa;
+ }
