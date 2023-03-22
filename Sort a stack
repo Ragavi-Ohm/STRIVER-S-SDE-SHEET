@@ -1,0 +1,33 @@
+void sortStack(stack<int> &stack)
+{
+	// Write your code here
+	std::stack<int>s1;
+	std::stack<int>s2;
+	while(!stack.empty())
+	{
+		if(s1.empty())
+		{
+			s1.push(stack.top());
+		}
+		else
+		{
+			while(!s1.empty() && s1.top()<stack.top())
+			{
+				s2.push(s1.top());
+				s1.pop();
+			}
+			s1.push(stack.top());
+			while(!s2.empty())
+			{
+				s1.push(s2.top());
+				s2.pop();
+			}
+		}
+		stack.pop();
+	}
+	while(!s1.empty())
+	{
+		stack.push(s1.top());
+		s1.pop();
+	}
+}
