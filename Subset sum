@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+void subset(vector<int>&num,vector<int>&dp,int ind,int sum,int n)
+{
+    if(ind==n)
+    {
+        dp.push_back(sum);
+        return;
+    }
+    subset(num,dp,ind+1,sum+num[ind],n);
+    subset(num,dp,ind+1,sum,n);
+}
+vector<int> subsetSum(vector<int> &num)
+{
+    // Write your code here.
+    vector<int>dp;
+    subset(num,dp,0,0,num.size());
+    sort(dp.begin(),dp.end());
+    //reverse(dp.begin(),dp.end());
+    return dp;
+
+}
