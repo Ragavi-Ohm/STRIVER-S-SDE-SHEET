@@ -1,0 +1,32 @@
+void comb(vector<int>&arr,vector<int>&dp,vector<vector<int>>&res,int ind,int sum,int n)
+{
+    if(ind==n)
+    {
+        if(sum==0){
+        res.push_back(dp);
+        }
+        return;
+    }
+    
+        
+    dp.push_back(arr[ind]);
+    comb(arr,dp,res,ind+1,sum-arr[ind],n);
+    dp.pop_back();
+    
+    
+    comb(arr,dp,res,ind+1,sum,n);
+    
+}
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    // Write your code here.
+    vector<int>dp;
+    vector<vector<int>>res;
+    //sort(arr.begin(),arr.end());
+    comb(arr,dp,res,0,k,n);
+    sort(res.begin(),res.end());
+    return res;
+}
+
+
+
