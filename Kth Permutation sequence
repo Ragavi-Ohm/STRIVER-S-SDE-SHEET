@@ -25,3 +25,30 @@ string kthPermutation(int n, int k) {
     }
     return s;
 }
+
+EASY C++ STL SOLUTION:
+
+string getPermutation(int n, int k) {
+        
+        int arr[n+1];
+        for(int i=1;i<=n;i++)
+        {
+            arr[i-1]=i;
+        }
+        int cnt=1;
+        while(next_permutation(arr,arr+n))
+        {
+            cnt++;
+            if(cnt==k)
+                break;
+            
+        }
+        string ans="";
+        int i=0;
+        while(i<n)
+        {
+            ans.push_back(char(arr[i]+48));
+            i++;
+        }
+        return ans;        
+    }
