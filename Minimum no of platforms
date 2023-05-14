@@ -1,0 +1,44 @@
+int calculateMinPatforms(int at[], int dt[], int n) {
+    // Write your code here.
+    vector<pair<int,int>>v;
+    for(int i=0;i<n;i++)
+    {
+        v.push_back(make_pair(at[i],dt[i]));
+    }
+    sort(v.begin(),v.end());
+    //(v.begin(),v.end());
+    map<int,int>mp;
+    int cnt=0,plat=0;
+    for(int i=0;i<=n;i++)
+    {
+        mp[i]=-1;
+    }
+    /*for(int i=0;i<n;i++)
+    {
+        cout<<v[i].first<<" "<<v[i].second;
+        cout<<"\n";
+    }*/
+    for(int i=0;i<n;i++)
+    {
+       int flag=0;
+       for(int j=0;j<=plat;j++)
+       {
+           if(mp[j]==-1||mp[j]<v[i].first)
+           {
+              mp[j]=v[i].second;
+             
+              flag=1;
+              break;
+           }
+       }
+       if (flag != 1) {
+         plat++;
+         mp[plat] = v[i].second;
+       }
+    }
+    /*for(int i=0;i<=n;i++)
+    {
+        cout<<mp[i]<<" ";
+    }*/
+    return plat+1;
+}
