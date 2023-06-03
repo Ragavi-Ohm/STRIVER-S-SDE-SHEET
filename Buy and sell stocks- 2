@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+long getMaximumProfit(long *values, int n)
+{
+    //Write your code here
+    long profit=0;
+    for(int i=1;i<n;i++)
+    {
+        if(values[i]>values[i-1])
+        profit+=(values[i]-values[i-1]);
+    }
+    return profit;
+}
+
+
+#include<bits/stdc++.h>
+// long rec(int ind,int buy,long *values, int n,vector<vector<int>>&dp)
+// {
+//     if(ind==n)
+//     return 0;
+//     if(dp[ind][buy]!=-1)
+//     return dp[ind][buy];
+//     int profit;
+//     if(buy)
+//     {
+//         profit=max(-values[ind]+rec(ind+1,0,values,n,dp) , 0+rec(ind+1,1,values,n,dp));
+//     }
+//     else
+//     {
+//         profit=max(values[ind]+rec(ind+1,1,values,n,dp) , 0+rec(ind+1,0,values,n,dp));
+//     }
+//     dp[ind][buy]=profit;
+//     return dp[ind][buy];
+// }
+long getMaximumProfit(long *values, int n)
+{
+    //Write your code here
+    //recursion
+    vector<vector<long>>dp(n+1,vector<long>(2,0));
+    long profit=0;
+    dp[n][0]=0;
+    dp[n][1]=0;
+    for (int i = n-1; i>=0; i--)
+    {
+        for(int buy=0;buy<2;buy++)
+        {
+            if(buy)
+            {
+              dp[i][buy]=max(-values[i]+dp[i+1][0],0+dp[i+1][1]);   
+            }
+            else
+            {
+               dp[i][buy]=max(values[i]+dp[i+1][1],0+dp[i+1][0]);
+            }
+        }
+    }
+    
+
+    return dp[0][1];
+    
+}
