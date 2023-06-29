@@ -28,7 +28,7 @@ int func(int ind, vector<int>& cost, int w, int n, vector<vector<int>>& store) {
 int minCost(int n, int w, vector<int> cost) {
     vector<vector<int>> store(n + 1, vector<int>(w + 1, -1)); 
     int ans = func(n, cost, w, n, store);
-    if (ans > 10000)
+    if (ans > 100000)
         return -1;
     else
         return ans;
