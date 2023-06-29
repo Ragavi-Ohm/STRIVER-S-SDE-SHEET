@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+
+int func(int ind, vector<int>& cost, int w, int n, vector<vector<int>>& store) {
+    if (ind == 1) {
+        if (w == 0)
+            return 0;
+        if (cost[ind-1] == -1)
+            return 1e9;
+        if (w % ind == 0) {
+            return (w / ind) * cost[ind-1];
+        } else {
+            return 1e9;
+        }
+    }
+
+    if (store[ind][w] != -1)
+        return store[ind][w];
+
+    int p = 1e9;
+    if (cost[ind-1] != -1 && ind <= w) {
+        p = func(ind, cost, w - ind, n, store) + cost[ind-1];
+    }
+    int np = func(ind-1, cost, w, n, store) + 0;
+    store[ind][w] = min(p, np);
+    return store[ind][w];
+}
+
+int minCost(int n, int w, vector<int> cost) {
+    vector<vector<int>> store(n + 1, vector<int>(w + 1, -1)); 
+    int ans = func(n, cost, w, n, store);
+    if (ans > 10000)
+        return -1;
+    else
+        return ans;
+}
