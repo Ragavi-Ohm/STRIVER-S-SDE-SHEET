@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+int func(int ind,int prod,vector < int > & a, int n, int p,vector<vector<int>>&dp)
+{
+    if(prod>p)
+    return 0;
+    if(dp[ind][prod]!=-1)
+    return dp[ind][prod];
+    if(ind==n)
+    return 1;
+    //pick
+    int pi=func(ind+1,prod*a[ind],a,n,p,dp);
+    //not pick
+    int np=func(ind+1,prod,a,n,p,dp)+0;
+    dp[ind][prod]=pi+np;
+    return dp[ind][prod];
+}
+int countSubsequences(vector < int > & a, int n, int p) {
+    // Write your code here.
+    vector<vector<int>>dp(n+1,vector<int>(p+1,-1));
+    return func(0,1,a,n,p,dp)-1;
+}
