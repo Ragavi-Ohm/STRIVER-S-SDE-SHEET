@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+int func(int ind,int prev,vector<int>&nums,int n,vector<vector<int>>&dp)
+{
+	if(ind==n)
+	return 0;
+	if(dp[ind][prev+1]!=-1)
+	return dp[ind][prev+1];
+	//pick
+	int p=INT_MIN;
+	if(prev==-1||abs(nums[ind]-nums[prev])==1)
+	p=func(ind+1,ind,nums,n,dp)+1;
+	int np=func(ind+1,prev,nums,n,dp)+0;
+	return dp[ind][prev+1]=max(p,np);
+} 
+int longestSubsequence(vector<int> &nums){
+	// Write your code here
+	int n=nums.size();
+	vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+	return func(0,-1,nums,n,dp);
+}
