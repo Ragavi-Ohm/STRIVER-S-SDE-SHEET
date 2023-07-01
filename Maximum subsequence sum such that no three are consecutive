@@ -1,0 +1,18 @@
+#include <bits/stdc++.h> 
+int maxSum(vector<int> &a, int n) 
+{
+	// Write your code here.
+	vector<int>dp(n+3,0);
+	if(n==1)
+	return a[n-1];
+	if(n==2)
+	return a[n-2]+a[n-1];
+	dp[n]=0;
+	dp[n-1]=a[n-1];
+	dp[n-2]=a[n-2]+a[n-1];
+	for(int i=n-3;i>=0;i--)
+	{
+          dp[i] =max({dp[i + 1], a[i] + a[i + 1] + dp[i + 3], a[i] + dp[i + 2]});
+        }
+	return *max_element(dp.begin(),dp.end());
+}
