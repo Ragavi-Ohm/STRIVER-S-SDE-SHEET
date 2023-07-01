@@ -18,3 +18,24 @@ int longestSubsequence(vector<int> &nums){
 	vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
 	return func(0,-1,nums,n,dp);
 }
+
+//map approach -->leetcode
+  int longestSubsequence(vector<int>& arr, int difference) {
+        int n=arr.size();
+        // vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        // return func(0,-1,arr,n,difference,dp);
+        vector<int>dp(n,1);
+        int maxi=INT_MIN;
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            int temp=1;
+            if(mp.find(arr[i]-difference)!=mp.end())
+                temp=1+mp[arr[i]-difference];
+            mp[arr[i]]=temp;
+            maxi=max(maxi,mp[arr[i]]);
+        }
+        return maxi;
+        
+    }
+
